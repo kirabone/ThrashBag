@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Valentine</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<div id="app">
+
+<section class="screen active" id="s1">
+<h1>Hello there</h1>
+<img src="hello.jpg">
+<button onclick="go(2)">Hi</button>
+</section>
+
+<section class="screen" id="s2">
+<h1>Are you a girl??</h1>
+<img src="askIfGirl.jpg">
+<button onclick="go(3)">Yes</button>
+<button onclick="notGirl()">No</button>
+</section>
+
+<section class="screen" id="s3">
+
+<h1>Do you have a boyfriend?</h1>
+<img src="haveABf.jpg">
+<button onclick="go(4)">Yes</button>
+<button onclick="go(5)">No</button>
+</section>
+
+<section class="screen" id="s4">
+<h1>np, we are gonna break up with him</h1>
+<img src="breakHimUp.png">
+<button onclick="go(6)">Next</button>
+</section>
+
+<section class="screen" id="s5">
+<h1>cool neither i do have a gf</h1>
+<img src="noBf.jpg">
+<button onclick="go(6)">Next</button>
+</section>
+
+<section class="screen" id="s6">
+<h1 id="chocoTitle">Do you like chocolates?</h1>
+<img src="chocolate.jpg" id = "chocoImg">
+<button onclick="go(7)">Yes</button>
+<button id="noChoco" onclick="chocoNo()">No</button>
+</section>
+
+<section class="screen" id="s7">
+<h1>Which one?</h1>
+<img src="whichOne.jpg">
+<textarea></textarea>
+<button onclick="go(8)">Send</button>
+</section>
+
+<section class="screen" id="s8">
+<h1>
+unfortunately the user dont know backend.<br>
+dm him your favourite chocolate's name.<br>
+ so he can gift one to you.<br>
+you have to share half of it with him, btw.
+</h1>
+<img src="sorry.jpg">
+<button onclick="go(9)">Next</button>
+</section>
+<section class="screen" id="s99">
+<h1>sorry, i am not gay</h1>
+<img src="noGay.jpg">
+<button onclick="go(1)">Restart</button>
+</section>
+<section class="screen" id="s9">
+<h1>
+so now neither of us are in a relationship,<br>
+we can think for one together
+</h1>
+<img src="stat1.jpg">
+<button onclick="go(10)">Next</button>
+</section>
+
+<section class="screen" id="s10">
+<h1>
+if you think there are no reasons to date me,<br>
+wait lemme list
+</h1>
+<img src="stat2.jpg">
+<button onclick="go(11)">Next</button>
+</section>
+
+<section class="screen" id="s11">
+
+<h1>
+these are the reasons:<br>
+</h1>
+<img src="stat3.jpg"><br>
+<h1>
+1) smartest human alive (i invented the electricity)<br>
+2) mitochondria is the power house of the cell (W reference)<br>
+3) uses arch btw<br>
+4) hobbies: photosynthesis<br>
+5) free entertainment (yes, me)<br>
+6) limited edition (dare you to find another kira out of these 8b NPCs)<br>
+7) secretly a god (the only lord kira) <br>
+8) main character<br>
+9) invented eiffel tower<br>
+continue below
+</h1>
+<textarea placeholder="10)kira is a genius...."></textarea><br>
+<button onclick="go(12)">Finish</button>
+</section>
+
+<section class="screen" id="s12">
+<h1>Be my valentine?</h1>
+<img src="proposal.jpg">
+<button onclick="go(13)">Yes</button>
+<button id="escapeNo">No</button>
+</section>
+
+<section class="screen" id="s13">
+<h1>Yayyy! ❤️</h1>
+<img src="happy.jpg">
+<button>The pleasure is mine 😊</button>
+</section>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
