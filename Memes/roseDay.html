@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Rose Day</title>
+
+<style>
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.screen { display: none; text-align: center; }
+.screen.active { display: block; }
+
+body.theme {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  transition: 0.6s;
+}
+
+body.theme button {
+  padding: 10px 16px;
+  margin: 6px;
+  border: none;
+  background: black;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* 🌹 main rose */
+.rose {
+  position: relative;
+  width: 180px;
+  height: 260px;
+  margin: 10px auto;
+}
+
+.petal {
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  top: 10px;
+  left: 35px;
+  transform: rotate(45deg);
+  box-shadow: inset -10px -10px 18px rgba(0,0,0,0.25);
+}
+
+.petal::before,
+.petal::after {
+  content: "";
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: inherit;
+}
+
+.petal::before { top: -40px; left: 0; }
+.petal::after { left: 40px; top: 0; }
+
+.stem { position: absolute; width: 8px; height: 140px; background: green; bottom: 0; left: 86px; }
+
+.leaf, .leaf2 {
+  position: absolute;
+  width: 60px;
+  height: 30px;
+  background: green;
+  border-radius: 30px 0;
+}
+
+.leaf { bottom: 80px; left: 90px; transform: rotate(-30deg); }
+.leaf2 { bottom: 110px; left: 20px; border-radius: 0 30px; transform: rotate(30deg); }
+
+/* falling petals */
+.fallPetal {
+  position: fixed;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  opacity: 0.9;
+  pointer-events: none;
+  animation: drop linear forwards;
+}
+
+@keyframes drop {
+  from { transform: translateY(0) rotate(0deg); }
+  to { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div id="s1" class="screen active">
+  <h1>Hello girl</h1>
+  <button onclick="next('s2')">Hi there</button>
+</div>
+
+<div id="s2" class="screen">
+  <h1>I don't think you like this stupid page without css</h1>
+  <button onclick="next('s3')">I don't like it</button>
+</div>
+
+<div id="s3" class="screen">
+  <h1>What is your favourite sky?</h1>
+  <button onclick="theme('cotton')">Cotton Candy</button>
+  <button onclick="theme('vanilla')">Ice Cream</button>
+  <button onclick="theme('choco')">Chocolate Bar</button>
+</div>
+
+<div id="s3b" class="screen">
+  <h1>You like that color?</h1>
+  <button onclick="next('s4')">Yes that is my fav color</button>
+</div>
+
+<div id="s4" class="screen">
+  <h1>What is your favourite time of the day?</h1>
+  <button onclick="timePick(this,'morning')">Morning</button>
+  <button onclick="timePick(this,'afternoon')">Afternoon</button>
+  <button onclick="timePick(this,'evening')">Evening</button>
+  <button onclick="timePick(this,'night')">Night</button>
+  <button onclick="next('s4b')">Time that I spend with kira</button>
+  <div id="reaction"></div>
+</div>
+
+<div id="s4b" class="screen">
+  <h1>I knew you love kira a lot</h1>
+  <button onclick="next('s5')">Continue</button>
+</div>
+
+<div id="s5" class="screen">
+  <h1>What color should the rose be?</h1>
+  <button onclick="rose('red')">Red</button>
+  <button onclick="rose('pink')">Pink</button>
+  <button onclick="rose('violet')">Violet</button>
+</div>
+
+<div id="s6" class="screen">
+  <div class="rose">
+    <div id="petal" class="petal"></div>
+    <div class="stem"></div>
+    <div class="leaf"></div>
+    <div class="leaf2"></div>
+  </div>
+  <h1 id="poem"></h1>
+</div>
+
+<script>
+let petalColor = "#ff6fa5";
+let petalRain;
+
+function next(id) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
+
+function theme(t) {
+  document.body.classList.add("theme");
+
+  if (t === "cotton") document.body.style.background = "#ffd6ec";
+  if (t === "vanilla") document.body.style.background = "#fff2d6";
+  if (t === "choco") document.body.style.background = "#e6b7a9";
+
+  next("s3b");
+}
+
+function timePick(btn, time) {
+  btn.style.display = "none";
+
+  const text = {
+    morning: "mornings are trash",
+    afternoon: "afternoons are torture",
+    evening: "evenings are blues",
+    night: "nights are nothing without me and you together"
+  };
+
+  document.getElementById("reaction").innerText = text[time];
+}
+
+function spawnPetal() {
+  const p = document.createElement("div");
+  p.className = "fallPetal";
+  p.style.left = Math.random() * window.innerWidth + "px";
+  p.style.background = petalColor;
+  p.style.animationDuration = 3 + Math.random() * 2 + "s";
+
+  document.body.appendChild(p);
+
+  setTimeout(() => p.remove(), 5000);
+}
+
+function startPetals() {
+  petalRain = setInterval(spawnPetal, 250);
+}
+
+function rose(color) {
+  next("s6");
+
+  const poems = {
+    red: `Roses are red,<br>bright like a clue,<br>Kira wanted to say<br>that he loves you.`,
+    violet: `Roses are violet,<br>deep like the hue,<br>Kira wanted to say<br>that he loves you.`,
+    pink: `Roses are pink,<br>soft like a view,<br>Kira wanted to say<br>that he loves you.`
+  };
+
+  const colors = {
+    red: "#d4002a",
+    violet: "#7f3fbf",
+    pink: "#ff6fa5"
+  };
+
+  petalColor = colors[color];
+  document.getElementById("poem").innerHTML = poems[color];
+  document.getElementById("petal").style.background = colors[color];
+
+  startPetals();
+}
+</script>
+
+</body>
+</html>
